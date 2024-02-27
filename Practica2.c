@@ -1,13 +1,8 @@
 #include<stdio.h>
 #include<math.h>
-#include<string.h> // Include string.h for string functions
+#include<string.h> 
 #include <stdlib.h>
 
-
-
-
-//Una funci ́on que calcule la media aritm ́etica un areglo de datos, recibe el
-//arreglo de datos y el n ́umero de datos en el arreglo.
 float media_aritmetica(float datos[], int n){
     float suma=0;
 
@@ -17,9 +12,6 @@ float media_aritmetica(float datos[], int n){
     return suma/n;
 }
 
-
-//Una funci ́on que calcule la media arm ́onica de un areglo de datos, recibe
-//el arreglo de datos y el n ́umero de datos en el arreglo.
 float media_armonica(float datos[], int n){
     float suma=0;
 
@@ -30,42 +22,63 @@ float media_armonica(float datos[], int n){
 }
 
 
-//Una funci ́on que calcule la media geom ́etrica de un areglo de datos, recibe
-//el arreglo de datos y el n ́umero de datos en el arreglo.
 float media_geometrica(float datos[], int n){
 
     float producto=1;
-    for(int i=0;i<n;i++){
-        producto*=datos[i];
-        printf("i: %d dato: %f, producto: %f\n", i, datos[i],producto);
-    }
 
-   
+    for(int i=0;i<n;i++)
+        producto*=datos[i];
+     
     return pow(producto, 1.0/n);
 }
 
 void uso(){
-    printf("Uso: Practica2 L L L\n");
-    printf("Donde L puede ser la letra A,H,G\n");
-    printf("Cada entrada L puede ser distinto\n");
-}
 
-void banderas(char* hola){
-    printf("esto es el apuntador: %c \n",*hola);
+    printf("Uso: ./Practica2 Practica2 L datos\n");
+    printf("Donde L puede ser la letra A, H o G\n");
+    printf("Los datos son numeros separados por espacios\n");
+    
 }
 
 int main(int argc, char *argv[]){
 
+    if(argc < 4 || strcmp(argv[1], "Practica2") != 0){
+        uso();
+        return 0;
+    }
     
-    if(argc <3 ||  strcmp(argv[1], "Practica2") != 0)
+    float datos[argc-3];
+    
+    for(int i = 3; i < argc; i++)
+        datos[i-3] = atof(argv[i]);
+ 
+    switch (argv[2][0])
+    {
+    case 'A':
+
+        printf("Media aritmetica: %f\n", media_aritmetica(datos,argc-3));
+
+        break;
+
+    case 'H':
+
+        printf("Media armonica: %f\n", media_armonica(datos,argc-3));
+
+        break;
+
+    case 'G':
+
+        printf("Media geometrica: %f\n", media_geometrica(datos,argc-3));
+
+        break;
+
+    default:
+
         uso();
 
-    float datos[argc-3];
+        break;
 
-    for(int i=3; i<argc;i++)
-        datos[i-3]=(float) atof(argv[i]);
+    }
 
-    
-    printf("%f", media_geometrica(datos,argc-3));
     return 0;
 }
