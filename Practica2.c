@@ -49,9 +49,19 @@ int main(int argc, char *argv[]){
     
     float datos[argc-3];
     
-    for(int i = 3; i < argc; i++)
-        datos[i-3] = atof(argv[i]);
- 
+      
+    for (int i = 3; i < argc; i++) {
+
+        char *noConvertido;
+        float value = strtof(argv[i], &noConvertido);//guarda la direccion del primer caracter que no se pudo convertir en float
+        if (*noConvertido != '\0') {
+            printf("Error: Entrada invalida '%s'. Introduce numeros validos.\n", argv[i]);
+            return 1; 
+        }
+        datos[i - 3] = value;
+        
+    }
+
     switch (argv[2][0])
     {
     case 'A':
